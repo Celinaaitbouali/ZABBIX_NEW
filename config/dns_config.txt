@@ -1,4 +1,4 @@
-Zone : celiwilli.lan
-A records :
-dhcp → 192.168.10.1
-dns → 192.168.10.2
+Zone : celwill.lan
+A dhcp → 192.168.10.1
+A dns → 192.168.10.2
+A zabbix → 192.168.10.20
