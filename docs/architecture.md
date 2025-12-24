@@ -10,61 +10,85 @@ Ce projet a pour objectif de mettre en place une solution de **supervision centr
 
 Les objectifs principaux sont :
 - Superviser des systèmes **Windows et Linux**
+- Collecter des métriques système (CPU, RAM, disque, réseau)
 - Détecter les incidents via des **triggers**
 - Envoyer des **alertes par e-mail**
-- Mettre en place une **redondance** du serveur Zabbix (optionnelle)
+- Mettre en place une **redondance du serveur Zabbix** (optionnelle)
 
-📸 **Capture à insérer** : vue globale du projet ou page d’accueil Zabbix
+📸 **Capture à insérer**  
+`screenshots/zabbix_dashboard.png`  
+➡️ Vue du tableau de bord Zabbix après installation
 
 ---
 
-## 🏗️ Architecture du projet
+## 🏗️ Architecture globale
 
-- **Zabbix Server principal** : `192.168.10.20`
-- **Zabbix Server secondaire** (redondance)
-- **Clients supervisés** :
+L’infrastructure repose sur un réseau privé `192.168.10.0/24` intégrant des services
+DHCP, DNS et Active Directory ainsi qu’un serveur de supervision Zabbix.
+
+### Composants
+
+- **Windows Server**
+  - DHCP : `192.168.10.1`
+  - DNS : `192.168.10.2`
+  - Domaine : `celwill.lan`
+
+- **Zabbix Server principal**
+  - Adresse IP : `192.168.10.20`
+  - Rôle : collecte des métriques, gestion des alertes et interface web
+
+- **Zabbix Server secondaire** *(optionnel)*
+  - Rôle : redondance et continuité de service
+
+- **Clients supervisés**
   - Serveur **TrueNAS (Linux)**
-  - Client **Windows**
-- Réseau : `192.168.10.0/24`
+  - **Client Windows**
 
-📸 **Capture à insérer** : schéma d’architecture réseau Zabbix
+📸 **Capture à insérer**  
+`screenshots/zabbix_hosts.png`  
+➡️ Liste des hôtes supervisés (Monitoring → Hosts)
 
 ---
 
-## 🌐 Architecture réseau détaillée
+## 🌐 Architecture réseau
 
-- Serveur DHCP : `192.168.10.1`
-- Serveur DNS : `192.168.10.2`
+- Réseau : `192.168.10.0/24`
 - Passerelle : `192.168.10.254`
-- Domaine : `celwill.lan`
+- DNS : `192.168.10.2`
+- DHCP : `192.168.10.1`
 
-📸 **Capture à insérer** : configuration IP / plan d’adressage
+📸 **Capture à insérer**  
+`screenshots/ip_plan.png`  
+➡️ Plan d’adressage ou configuration IP serveur
 
 ---
 
 ## 🔁 Flux de supervision
 
-- Les agents Zabbix installés sur les clients communiquent avec le serveur Zabbix via le port **10050**
-- Le serveur Zabbix écoute sur le port **10051**
-- L’interface web est accessible via **HTTP/HTTPS**
+- Les **agents Zabbix** communiquent avec le serveur sur le port **10050**
+- Le **serveur Zabbix** écoute sur le port **10051**
+- L’interface Web est accessible via **HTTP / HTTPS**
+- Les clients obtiennent leur configuration IP via **DHCP**
 
-📸 **Capture à insérer** : vue des hôtes dans l’interface Zabbix (Monitoring → Hosts)
+📸 **Capture à insérer**  
+`screenshots/agent_available.png`  
+➡️ État "Agent available" sur un hôte
 
 ---
 
-## 🧩 Évolutivité et redondance
+## 🔄 Redondance (optionnelle)
 
-L’architecture permet :
-- L’ajout de nouveaux hôtes supervisés
-- La mise en place d’un serveur Zabbix secondaire
-- La supervision SNMP d’équipements réseau
+Un serveur Zabbix secondaire peut être ajouté afin d’assurer la continuité de la supervision
+en cas de défaillance du serveur principal.
 
-📸 **Capture à insérer** : configuration ou documentation de la redondance (optionnel)
+📸 **Capture à insérer (optionnelle)**  
+`screenshots/zabbix_redundancy.png`  
+➡️ Documentation ou configuration de la redondance
 
 ---
 
 ## 🖼️ Schéma d’architecture
 
-Le schéma ci-dessous illustre l’architecture de supervision mise en place :
+Le schéma suivant illustre l’architecture de supervision mise en place :
 
 ![Architecture Zabbix](../architecture/architecture_zabbix.png)
