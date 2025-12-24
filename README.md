@@ -21,5 +21,4 @@ Les objectifs principaux sont :
   - Client **Windows**
 - Réseau : `192.168.10.0/24`
 
-📷 Le schéma d’architecture est disponible dans le dossier :
 
