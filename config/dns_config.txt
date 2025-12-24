@@ -1,0 +1,4 @@
+Zone : celiwilli.lan
+A records :
+dhcp → 192.168.10.1
+dns → 192.168.10.2

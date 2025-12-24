@@ -1,0 +1,5 @@
+Plage : 192.168.10.10 - 192.168.10.99
+Exclusions : 192.168.10.1-9, 100-254
+Passerelle : 192.168.10.254
+DNS : 192.168.10.2
+Domaine : celiwilli.lan
